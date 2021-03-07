@@ -42,7 +42,7 @@ class HtmlCssToImageRenderer(BaseRenderer):
       'css': css,
       **api_params,
     }
-    auth = (api_id, api_key)
+    auth = aiohttp.BasicAuth(api_id, api_key)
 
     if file_format not in ['jpg', 'png', 'webp']:
       raise ValueError(f'file_format must be jpg, png or webp, not {file_format}')
