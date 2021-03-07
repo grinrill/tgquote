@@ -8,7 +8,7 @@ except ModuleNotFoundError:
   TelegramObject = None
   Bot = None
 
-async def preprocessMessagesToDict(
+def preprocessMessagesToDict(
   messages: typing.Union[
     TelegramObject, 
     dict,
