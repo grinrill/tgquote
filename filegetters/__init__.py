@@ -1,2 +1,2 @@
-from base import BaseFileGetter
-from default import DefaultFileGetter
+from .base import BaseFileGetter
+from .default import DefaultFileGetter

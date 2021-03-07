@@ -1,4 +1,4 @@
-from base import BaseFileGetter
+from .base import BaseFileGetter
 import io
 
 class DefaultFileGetter(BaseFileGetter):

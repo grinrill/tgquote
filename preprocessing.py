@@ -1,5 +1,4 @@
 import typing
-from types import Media, MediaFile, MediaUserpic
 
 try:
   import aiogram

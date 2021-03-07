@@ -1,5 +1,5 @@
 from jinja2 import Environment, FileSystemLoader
-from filegetters import BaseFileGetter
+from .filegetters import BaseFileGetter
 import typing
 
 env = Environment(
@@ -8,7 +8,7 @@ env = Environment(
 )
 
 
-async def message2html(
+async def messagesToHtml(
   messages: typing.List[dict],
   filegetter: BaseFileGetter,
   env: Environment = env,
@@ -20,4 +20,3 @@ async def message2html(
     files = filegetter,
   )
   return html
-
