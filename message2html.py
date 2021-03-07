@@ -1,14 +1,23 @@
-from jinja2 import Environment, FileSystemLoader, select_autoescape
+from jinja2 import Environment, FileSystemLoader
+from filegetters import BaseFileGetter
+import typing
+
 env = Environment(
     loader=FileSystemLoader('./templates'),
-    # enable_async=True,
-    # autoescape=select_autoescape(['html', 'xml', 'jinja2'])
+    enable_async=True,
 )
-template = env.get_template('messages')
 
 
-def message2html(
-  messages: typing.Union[
-    dict,
-    typing.List[dict]]
+async def message2html(
+  messages: typing.List[dict],
+  filegetter: BaseFileGetter,
+  env: Environment = env,
   ):
+  template = env.get_template('index.jinja2')
+
+  html = await template.render_async(
+    messages = messages,
+    files = filegetter,
+  )
+  return html
+
