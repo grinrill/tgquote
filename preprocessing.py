@@ -50,13 +50,28 @@ async def preprocessMessagesToDict(
   
   return messages
 
-async def preprocessDownloadMedia(
-    messages: typing.List[dict],
-    bot: Bot,
-    media: Media = None
-  ) -> Media:
-    if not media:
-      media = Media(bot=bot)
+# async def preprocessDownloadMedia(
+#     messages: typing.List[dict],
+#     bot: Bot,
+#     media: Media = None
+#   ) -> Media:
+#     if not media:
+#       media = Media(bot=bot)
 
-    for message in messages:
-      ...grinrill@mail.ru
+#     for message in messages:
+#       if files := message.get('photo'):
+#         if file := [
+#           media.get_file(
+#             file_id=f['file_id'], 
+#             file_unique_id=f['file_unique_id']
+#             )
+#           for f in files
+#         ]:
+#           file = file[0]
+#           if file.downloaded:
+#             continue
+#         else:
+#           file = MediaFile()
+        
+          
+
