@@ -1,6 +1,7 @@
-html {
-  background-color: grey;
+body { 
+  background-color: transparent;
 }
+
 .message {
   display: inline-block;
   background-color: white;
