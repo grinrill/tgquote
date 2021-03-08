@@ -12,7 +12,7 @@ class BaseFileGetter:
     и если находит, возвращает его
     """
     if isinstance(message, list):
-      values = list
+      values = message
     elif isinstance(message, dict):
       values = list(message.values())
     else: 
@@ -33,7 +33,7 @@ class BaseFileGetter:
     и если находит, возвращает его родителя
     """
     if isinstance(message, list):
-      values = list
+      values = message
     elif isinstance(message, dict):
       values = list(message.values())
     else: 
