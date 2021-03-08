@@ -1,0 +1,8 @@
+{% for message in messages %}
+Text: {{message.text or message.caption}}
+<br>
+{% set document = files.get_document(message) %}
+{% if document %}
+Document: {{document}}
+{% endif %}
+{% endfor %}
