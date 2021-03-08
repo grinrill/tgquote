@@ -7,13 +7,16 @@ from jinja2 import Environment, ChoiceLoader, BaseLoader, FileSystemLoader
 import typing
 import io
 
+from pathlib import Path
+module = Path(__file__).parent
+
 class TelegramImageRenderer:
   def __init__(
     self,
     renderer: BaseRenderer,
     filegetter: BaseFileGetter,
     file_format: str = 'png',
-    styles: typing.Union[str, io.BytesIO, io.StringIO] = 'css/light.css',
+    styles: typing.Union[str, io.BytesIO, io.StringIO] = str(module/'css/light.css'),
     jinja2_loader: BaseLoader = None,
     jinja2_env: Environment = None,
   ):
@@ -27,10 +30,10 @@ class TelegramImageRenderer:
       if jinja2_loader:
         loader = ChoiceLoader([
           jinja2_loader,
-          FileSystemLoader('./templates')
+          FileSystemLoader(module/'templates')
         ])
       else:
-        loader = FileSystemLoader('./templates')
+        loader = FileSystemLoader(module/'templates')
       self.env = Environment(
           loader=loader,
           enable_async=True,
@@ -67,7 +70,7 @@ class TelegramImageRenderer:
       if jinja2_loader:
         loader = ChoiceLoader([
           jinja2_loader,
-          FileSystemLoader('./templates')
+          FileSystemLoader(module/'templates')
         ])
         env = Environment(
             loader=loader,
