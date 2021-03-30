@@ -12,18 +12,20 @@ class BaseFileGetter:
     и если находит, возвращает его
     """
     if isinstance(message, list):
-      values = message
+      values = list(enumerate(message))
     elif isinstance(message, dict):
-      values = list(message.values())
+      values = list(message.items())
     else: 
       return
     values.reverse()
 
-    for i in values:
-      if isinstance(i, dict):
-        if 'thumb' in i:
-          return i['thumb']
-      if result := await self.get_thumb(i):
+    for k, v in values:
+      if k == 'reply_to_message':
+        continue
+      if isinstance(v, dict):
+        if 'thumb' in v:
+          return v['thumb']
+      if result := await self.get_thumb(v):
         return result
 
   async def get_document(self, message):
@@ -33,16 +35,18 @@ class BaseFileGetter:
     и если находит, возвращает его родителя
     """
     if isinstance(message, list):
-      values = message
+      values = list(enumerate(message))
     elif isinstance(message, dict):
-      values = list(message.values())
+      values = list(message.items())
     else: 
       return
     values.reverse()
 
-    for i in values:
-      if isinstance(i, dict):
-        if 'file_id' in i:
-          return i
-      if result := await self.get_document(i):
+    for k, v in values:
+      if k == 'reply_to_message':
+        continue
+      if isinstance(v, dict):
+        if 'file_id' in v:
+          return v
+      if result := await self.get_document(v):
         return result

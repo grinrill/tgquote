@@ -2,31 +2,53 @@ body {
   background-color: transparent;
 }
 
+.block {
+  /* position: relative; */
+}
+
 .message {
+  position: relative;
+
   display: inline-block;
   background-color: white;
   width: 400px;
   padding: 8px 0;
   border-radius: 7px;
-  border-bottom-left-radius: 0px; 
+  /* border-bottom-left-radius: 0px;  */
   margin: 18px;
-  margin-left: 6px;
+  margin-left: 86px;
 }
 
+
+
 .author-user-pic {
+  position: absolute;
+  left: 0px;
+  right: 0px;
+  width: 0px;
+  height: 100%;
+}
+
+.author-user-pic img {
   position: relative;
+  right: 66px;
+  /* bottom: 60px; */
+  top: calc(100%-50px);
+  /* margin-bottom: 50px; */
+  /* bottom: 1px; */
+  /* margin-top: 100%; */
   /* top: 18px; */
   width: 50px;
   height: 50px;
   border-radius: 50%;
   object-fit: cover;
-  margin-left: 18px;
+  /* margin-left: 18px; */
 /*   background-color: white; */
 }
 
 .message-tail {
   display: inline-block;
-  background-color: white;
+  background-c1olor: white;
   width: 10px;
   height: 10px;
   border-top-left-radius: 10px;
@@ -35,13 +57,14 @@ body {
 
 .message .message-image {
   padding: 0px;
+  margin: 2px 0;
   max-width: calc(100%);
 }
 
 .author-user-name {
   font-weight: bold;
-  padding: 2px;
-  margin: 0 8px 4px;
+  padding: 0 2px;
+  margin: 0 8px 1px;
 /*   margin-top: 0px; */
 }
 .author-user-color-0 {color: red}
@@ -52,7 +75,20 @@ body {
 .author-user-color-5 {color: lightblue}
 .author-user-color-6 {color: #ff5694}
 
+.via-bot {
+  font-weight: bold;
+  padding: 0 2px;
+  margin: 0 0px 0px;
+  color: #62d4e3;
+}
+.forward-name {
+  font-weight: bold;
+  padding: 0 2px;
+  margin: 0 8px 0px;
+  color: #62d4e3;
+}
+
 .message-text {
-  padding: 2px;
-  margin: 4px 8px 4px;
+  padding: 0 2px;
+  margin: 0px 8px 4px;
 }
