@@ -18,5 +18,41 @@
     },
     "date": 1615739506,
     "text": "Test"
+  },
+  {
+    "message_id": 590266,
+    "from": {
+     "id": 586401294,
+     "is_bot": false,
+     "first_name": "Kirill",
+     "last_name": "‌Grinchuk",
+     "username": "Grinrill",
+     "language_code": "ru"
+    },
+    "chat": {
+     "id": 586401294,
+     "first_name": "Kirill",
+     "last_name": "‌Grinchuk",
+     "username": "Grinrill",
+     "type": "private"
+    },
+    "date": 1617131050,
+    "animation": {
+     "file_name": "yhujgY6m0RQ.mp4",
+     "mime_type": "video/mp4",
+     "duration": 4050,
+     "width": 192,
+     "height": 144,
+     "file_id": "CgACAgQAAxkBAAEJAbpgY3YqTbmgIsRDM2AbrwTrqVFOWwAClgIAAvukbFLcc2oMxI-kqB4E",
+     "file_unique_id": "AgADlgIAAvukbFI",
+     "file_size": 5000001
+    },
+    "document": {
+     "file_name": "yhujgY6m0RQ.mp4",
+     "mime_type": "video/mp4",
+     "file_id": "CgACAgQAAxkBAAEJAbpgY3YqTbmgIsRDM2AbrwTrqVFOWwAClgIAAvukbFLcc2oMxI-kqB4E",
+     "file_unique_id": "AgADlgIAAvukbFI",
+     "file_size": 5000001
   }
+ }
 ]

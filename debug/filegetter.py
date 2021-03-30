@@ -35,7 +35,7 @@ class DebufFileGetter(filegetters.BaseFileGetter):
       if isinstance(v, dict):
         if 'file_id' in v:
           return {
-            'file_id': k+'.'+v.get('mimetype', 'jpg')
+            'file_id': k+'.'+(v.get('mime_type', 'img/jpg').split('/')[1])
           }
       if result := await self.get_document(v):
         return result
