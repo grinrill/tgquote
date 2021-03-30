@@ -72,5 +72,7 @@ def preprocessMessagesToDict(
 #         else:
 #           file = MediaFile()
         
-          
-
+def preprocessTextToHtml(messages: dict):
+  for message in messages:
+    text = message.get('text') or message.get('caption')
+  return messages

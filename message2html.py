@@ -12,14 +12,14 @@ env = Environment(
 
 async def messagesToHtml(
     messages: typing.List[dict],
-    filegetter: BaseFileGetter,
     env: Environment = env,
+    **kwargs
   ):
   template = env.get_template('index.jinja2')
 
   html = await template.render_async(
     messages = messages,
-    files = filegetter,
     utils = utils,
+    **kwargs
   )
   return html
