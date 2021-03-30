@@ -56,8 +56,7 @@ class PyppeteerRenderer(BaseRenderer):
     await page.setContent(content)
     await page.waitForSelector('.messages')
     messages = await page.querySelector('.messages')
-
-
+    
     with tempfile.NamedTemporaryFile() as f:
       screenshot_params.setdefault('path', f.name)
       await messages.screenshot(screenshot_params)
