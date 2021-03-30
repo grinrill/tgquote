@@ -2,6 +2,8 @@ from .base import BaseRenderer
 import asyncio
 import io
 import tempfile
+import typing
+import pathlib
 
 try:
   from pyppeteer import launch
@@ -33,10 +35,16 @@ class PyppeteerRenderer(BaseRenderer):
     html: str, 
     css: str, 
     file_format: str,
+    file: typing.Union[str, io.BytesIO] = None,
     screenshot_params = {},
   ):
     if not self.browser:
       self.browser = await launch(self.launcher_options)
+    
+    if file is None:
+      file = io.BytesIO()
+    elif isinstance(file, (str, pathlib.PosixPath)):
+      file = open(file, 'w+b')
 
     file_format = file_format or self.file_format
     screenshot_params = {**self.screenshot_params, **screenshot_params}
@@ -49,14 +57,14 @@ class PyppeteerRenderer(BaseRenderer):
     await page.waitForSelector('.messages')
     messages = await page.querySelector('.messages')
 
+
     with tempfile.NamedTemporaryFile() as f:
       screenshot_params.setdefault('path', f.name)
       await messages.screenshot(screenshot_params)
       
-      f2 = io.BytesIO()
-      f2.write(f.read())
-      f2.seek(0)
-      return f2
+      file.write(f.read())
+      file.seek(0)
+      return file
 
   async def close(self):
     try:

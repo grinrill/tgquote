@@ -184,3 +184,6 @@ class TelegramImageRenderer:
     image = await renderer.render(html, css, file_format)
 
     return image
+
+  async def close(self):
+    await self.renderer.close()
