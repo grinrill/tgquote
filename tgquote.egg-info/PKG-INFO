@@ -1,0 +1,78 @@
+Metadata-Version: 2.1
+Name: tgquote
+Version: 0.1.0
+Summary: Is a pretty simple and fully asynchronous framework for quoting telegram messages
+Home-page: https://github.com/grinrill/telegramimage
+Author: Grinrill
+Author-email: kiralgrin@gmail.com
+License: MIT
+Description: # telegramimage
+        Python module for screenshoting telegram messages.
+        
+        ## Example
+        ``` python3
+        from telegramimage import TelegramImageRenderer
+        from telegramimage.renderers import HtmlCssToImageRenderer
+        from telegramimage.filegetters import DefaultFileGetter
+        
+        
+        from aiogram import Bot, Dispatcher, executor, types
+        bot = Bot('your bot token')
+        dp = Dispatcher(bot)
+        
+        quoter = TelegramImageRenderer(
+          HtmlCssToImageRenderer(
+            api_id = 'your htmlcsstoimage.com api_id',
+            api_key = 'your htmlcsstoimage.com api_key',
+            api_url='https://htmlcsstoimage.com/demo_run'
+            # I use demo apis for tests
+            # I DO NOT RECOMMEND using the demo api in the prod
+          ),
+          DefaultFileGetter(bot),
+          append_styles='body {background-color: grey}',
+          # by default background is transparent
+        )
+        
+        
+        @dp.message_handler(
+          content_types=types.ContentTypes.ANY
+        )
+        async def handler(message):
+          await message.chat.do('upload_photo')
+          f = await quoter.render(message)
+          await message.reply_photo(f)
+          
+        executor.start_polling(dp, skip_updates=True)
+        ```
+        ## Render engines
+        Render engine object should be provided as the first argument in `TelegramImageRenderer`.
+        Currently two renderers available: `HtmlCssToImageRenderer` using htmlcsstoimage.com api and `PyppeteerRenderer` using pyppeteer.
+        
+        ### HtmlCssToImageRenderer
+        You need api_id and api_key to use this api, you can get it here: https://htmlcsstoimage.com/dashboard/api-keys.
+        ``` python3
+        render_engine = HtmlCssToImageRenderer(
+          api_id = 'your htmlcsstoimage.com api_id',
+          api_key = 'your htmlcsstoimage.com api_key'
+        )
+        ```
+        
+        ### PyppeteerRenderer
+        You need to install pyppeteer: https://github.com/miyakogi/pyppeteer#installation.
+        ``` python3
+        render_engine = PyppeteerRenderer()
+        ```
+        
+Platform: UNKNOWN
+Classifier: Development Status :: 3 - Alpha
+Classifier: Environment :: Console
+Classifier: Framework :: AsyncIO
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: System Administrators
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Topic :: Software Development :: Libraries :: Application Frameworks
+Provides-Extra: httpapi
+Provides-Extra: pyppeteer

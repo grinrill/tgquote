@@ -1,0 +1,6 @@
+
+[httpapi]
+aiohttp<4.0.0,>=3.7.2
+
+[pyppeteer]
+pyppeteer>=0.2.5
