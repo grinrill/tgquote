@@ -1,6 +1,11 @@
 # tgquote
 Python module for screenshoting telegram messages.
 
+## Installation 
+``` bash
+pip install git+https://github.com/grinrill/tgquote
+```
+
 ## Example
 ``` python3
 from tgquote import TelegramImageRenderer
