@@ -10,3 +10,5 @@ try:
   from . import debug
 except ModuleNotFoundError:
   pass
+
+__version__ = '0.1.0'

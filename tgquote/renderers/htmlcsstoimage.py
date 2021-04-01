@@ -35,7 +35,7 @@ class HtmlCssToImageRenderer(BaseRenderer):
     **api_params,
   ):
     if not self.session:
-      self.session = await aiohttp.ClientSession()
+      self.session = aiohttp.ClientSession()
 
     api_url = api_url or self.api_url
     api_id = api_id or self.api_id

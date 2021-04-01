@@ -27,6 +27,7 @@ body {
   right: 0px;
   width: 0px;
   height: 100%;
+  margin-top: -8px;
 }
 
 .author-user-pic img {

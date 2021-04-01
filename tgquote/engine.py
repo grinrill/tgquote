@@ -2,7 +2,7 @@ from .preprocessing import preprocessMessagesToDict
 from .renderers import BaseRenderer
 from .filegetters import BaseFileGetter
 from .message2html import messagesToHtml
-from .utils import templates_list
+from .utils import templates_list, js
 
 from jinja2 import Environment, ChoiceLoader, BaseLoader, FileSystemLoader
 import typing
@@ -181,6 +181,7 @@ class TelegramImageRenderer:
 
     messages = preprocessMessagesToDict(messages)
     html = await messagesToHtml(messages, env, files=filegetter, templates=templates)
+    html = f'{html} <script>{js}</script>'
     image = await renderer.render(html, css, file_format)
 
     return image
