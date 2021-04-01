@@ -36,3 +36,21 @@ async def handler(message):
   
 executor.start_polling(dp, skip_updates=True)
 ```
+## Render engines
+Render engine object should be provided as the first argument in `TelegramImageRenderer`.
+Currently two renderers available: `HtmlCssToImageRenderer` using htmlcsstoimage.com api and `PyppeteerRenderer` using pyppeteer.
+
+### HtmlCssToImageRenderer
+You need api_id and api_key to use this api, you can get it here: https://htmlcsstoimage.com/dashboard/api-keys.
+``` python3
+render_engine = HtmlCssToImageRenderer(
+  api_id = 'your htmlcsstoimage.com api_id',
+  api_key = 'your htmlcsstoimage.com api_key'
+)
+```
+
+### PyppeteerRenderer
+You need to install pyppeteer: https://github.com/miyakogi/pyppeteer#installation.
+``` python3
+render_engine = PyppeteerRenderer()
+```
