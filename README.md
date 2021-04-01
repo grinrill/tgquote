@@ -1,11 +1,11 @@
-# telegramimage
+# tgquote
 Python module for screenshoting telegram messages.
 
 ## Example
 ``` python3
-from telegramimage import TelegramImageRenderer
-from telegramimage.renderers import HtmlCssToImageRenderer
-from telegramimage.filegetters import DefaultFileGetter
+from tgquote import TelegramImageRenderer
+from tgquote.renderers import HtmlCssToImageRenderer
+from tgquote.filegetters import DefaultFileGetter
 
 
 from aiogram import Bot, Dispatcher, executor, types
