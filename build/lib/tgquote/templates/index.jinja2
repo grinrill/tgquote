@@ -1,0 +1,8 @@
+<div class="messages">
+{% for message in messages %}
+
+{% set template = utils.get_template(message, templates) %}
+{% include template %}
+
+{% endfor %}
+</div>
