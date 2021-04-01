@@ -24,6 +24,9 @@ quoter = TelegramImageRenderer(
     api_url='https://htmlcsstoimage.com/demo_run'
     # I use demo apis for tests
     # I DO NOT RECOMMEND using the demo api in the prod
+    
+    # also instead of htmlcsstoimage.com you can use pyppeteer for local rendering
+    # see below in the readme
   ),
   DefaultFileGetter(bot),
   append_styles='body {background-color: grey}',
