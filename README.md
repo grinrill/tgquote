@@ -29,7 +29,7 @@ quoter = TelegramImageRenderer(
     # see below in the readme
   ),
   DefaultFileGetter(bot),
-  append_styles='body {background-color: grey}',
+  append_css='body {background-color: grey}',
   # by default background is transparent
 )
 
