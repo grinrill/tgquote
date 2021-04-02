@@ -30,7 +30,7 @@ class TextDecoration(ABC):
 
             return self.link(value=text, link=f"tg://user?id={0}")
         if entity['type'] == "text_link":
-            return self.link(value=text, link=cast(str, entity.url))
+            return self.link(value=text, link=cast(str, entity['url']))
         if entity['type'] in {"bot_command", "url", "mention", "phone_number", "hashtag", "cashtag"}:
             return self.link(value=text, link='example.com')
 

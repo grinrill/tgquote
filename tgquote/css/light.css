@@ -12,16 +12,38 @@ body {
 
   display: inline-block;
   background-color: white;
-  width: 400px;
+  max-width: 400px;
   padding: 8px 0;
+  padding-top: 0;
   border-radius: 7px;
   /* border-bottom-left-radius: 0px;  */
   margin: 18px;
   margin-left: 86px;
 }
 
+.author {
+  margin-top: 8px;
+}
+
 .note-message {
   background-color: transparent;
+}
+
+.note-message .author {
+  background-color: white;
+  padding: 8px 0;
+  border-radius: 7px;
+}
+
+.document-marker {
+  position: absolute;
+  top: 35px;
+  left: 3px;
+  padding: 4px;
+  border-radius: 2px;
+  background-color: rgba(255, 255, 255, 0.5);
+  text-decoration-style: solid;
+  color: black;
 }
 
 .author-user-pic {
@@ -30,7 +52,6 @@ body {
   right: 0px;
   width: 0px;
   height: 100%;
-  margin-top: -8px;
 }
 
 .author-user-pic img {

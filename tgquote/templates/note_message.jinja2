@@ -1,6 +1,4 @@
-<div class="block">
-
-{% set user_id = utils.getSenderId(message) %}
+{% extends "base_message.jinja2" %}
 
 {% block message %}
 <div class="message note-message">
@@ -16,6 +14,7 @@
   {% endblock %}
 
   {% block author %}
+    <div class='author'>
     {% set forward_sender_name = utils.getForwardSenderName(message) %}
     {% if forward_sender_name %}
       <div class="author-user-name author-user-color-{{user_id%7}}">
@@ -31,6 +30,7 @@
         <span class="via-bot">{{ utils.getViaBot(message) }}</span>
       </div>
   {% endif %}
+    </div>
   {% endblock %}
 
   {% block reply_to_message %}
@@ -44,5 +44,3 @@
   {% endblock %}
 </div>
 {% endblock %}
-
-</div>

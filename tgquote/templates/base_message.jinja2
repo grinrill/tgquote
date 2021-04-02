@@ -5,50 +5,44 @@
 {% block message %}
 <div class="message">
   {% block userpic %}
-  <div class="author-user-pic">
-    <img src="{{
-          utils.base64ToUrl(
-            files.get_userpic(user_id),
-            'image/jpeg'
-          )
-        }}">
-  </div>
+    <div class="author-user-pic">
+      <img src="{{
+            utils.base64ToUrl(
+              files.get_userpic(user_id),
+              'image/jpeg'
+            )
+          }}">
+    </div>
   {% endblock %}
+
   {% block author %}
-  {% set forward_sender_name = utils.getForwardSenderName(message) %}
-  {% if forward_sender_name %}
-    <div class="author-user-name author-user-color-{{user_id%7}}">
-      {{ utils.getFullName(message) }}
-    </div> 
-    <div class="forward-name">
-      Forwarded from {{ forward_sender_name }}
-      <span class="via-bot">{{ utils.getViaBot(message) }}</span>      
-    </div>
-  {% else %}
-    <div class="author-user-name author-user-color-{{user_id%7}}">
-      {{ utils.getFullName(message) }}
-      <span class="via-bot">{{ utils.getViaBot(message) }}</span>
-    </div>
+    <div class='author'>
+    {% set forward_sender_name = utils.getForwardSenderName(message) %}
+    {% if forward_sender_name %}
+      <div class="author-user-name author-user-color-{{user_id%7}}">
+        {{ utils.getFullName(message) }}
+      </div> 
+      <div class="forward-name">
+        Forwarded from {{ forward_sender_name }}
+        <span class="via-bot">{{ utils.getViaBot(message) }}</span>      
+      </div>
+    {% else %}
+      <div class="author-user-name author-user-color-{{user_id%7}}">
+        {{ utils.getFullName(message) }}
+        <span class="via-bot">{{ utils.getViaBot(message) }}</span>
+      </div>
   {% endif %}
+    </div>
   {% endblock %}
 
   {% block reply_to_message %}
   {% endblock %}
   
   {% block document %}
-  {% set document = files.get_document(message) %}
-  {% if document %}
-    <img class="message-image" src="{{
-      utils.base64ToUrl(
-        files.get_file(document.file_id),
-        document.mime_type or 'image/jpeg'
-      )
-    }}">
-  {% endif %}
   {% endblock %}
 
   {% block text %}
-  <div class="message-text">{{message.text or message.caption}}</div>
+    <div class="message-text">{{message.text or message.caption}}</div>
   {% endblock %}
 </div>
 {% endblock %}
