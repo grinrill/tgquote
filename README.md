@@ -1,6 +1,11 @@
 # tgquote
 Python module for screenshoting telegram messages.
 
+## Installation 
+``` bash
+pip install git+https://github.com/grinrill/tgquote
+```
+
 ## Example
 ``` python3
 from tgquote import TelegramImageRenderer
@@ -19,9 +24,12 @@ quoter = TelegramImageRenderer(
     api_url='https://htmlcsstoimage.com/demo_run'
     # I use demo apis for tests
     # I DO NOT RECOMMEND using the demo api in the prod
+    
+    # also instead of htmlcsstoimage.com you can use pyppeteer for local rendering
+    # see below in the readme
   ),
   DefaultFileGetter(bot),
-  append_styles='body {background-color: grey}',
+  append_css='body {background-color: grey}',
   # by default background is transparent
 )
 
