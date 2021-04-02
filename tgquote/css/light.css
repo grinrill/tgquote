@@ -3,8 +3,13 @@ body {
   word-break: break-all;
 }
 
+.messages {
+  position: relative; 
+  display: inline-block;
+}
 .block {
-  /* position: relative; */
+  position: relative; 
+  display: inline-block;
 }
 
 .message {
@@ -19,6 +24,7 @@ body {
   /* border-bottom-left-radius: 0px;  */
   margin: 18px;
   margin-left: 86px;
+  margin-bottom: 0;
 }
 
 .author {
@@ -30,8 +36,12 @@ body {
 }
 
 .note-message .author {
+  display: inline-block;
+  position: relative;
   background-color: white;
   padding: 8px 0;
+  margin-top: 0;
+  margin-bottom: 4px;
   border-radius: 7px;
 }
 

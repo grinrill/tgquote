@@ -27,12 +27,15 @@
     {% else %}
       <div class="author-user-name author-user-color-{{user_id%7}}">
         {{ utils.getFullName(message) }}
-        <span class="via-bot">{{ utils.getViaBot(message) }}</span>
+        {% set via_bot = utils.getViaBot(message) %}
+        {% if via_bot %}
+          <span class="via-bot">{{ utils.getViaBot(message) }}</span>
+        {% endif %}
       </div>
   {% endif %}
     </div>
   {% endblock %}
-
+  
   {% block reply_to_message %}
   {% endblock %}
   
