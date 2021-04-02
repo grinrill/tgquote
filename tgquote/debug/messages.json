@@ -54,5 +54,41 @@
      "file_unique_id": "AgADlgIAAvukbFI",
      "file_size": 5000001
   }
+ },
+ {
+  "message_id": 594121,
+  "from": {
+   "id": 586401294,
+   "is_bot": false,
+   "first_name": "Kirill",
+   "last_name": "‌Grinchuk",
+   "username": "Grinrill",
+   "language_code": "ru"
+  },
+  "chat": {
+   "id": 586401294,
+   "first_name": "Kirill",
+   "last_name": "‌Grinchuk",
+   "username": "Grinrill",
+   "type": "private"
+  },
+  "date": 1617373586,
+  "sticker": {
+   "width": 512,
+   "height": 512,
+   "emoji": "🙂",
+   "set_name": "cat_Teftel_animated",
+   "is_animated": true,
+   "thumb": {
+    "file_id": "AAMCAgADGQEAAQkQyWBnKZJ6xG_1Fo9sn13wW-HniKiTAALMBAACIG07AAHt959m9GRT73wNuw8ABAEAB20AA2JkAAIeBA",
+    "file_unique_id": "AQADfA27DwAEYmQAAg",
+    "file_size": 4666,
+    "width": 128,
+    "height": 128
+   },
+   "file_id": "CAACAgIAAxkBAAEJEMlgZymSesRv9RaPbJ9d8Fvh54iokwACzAQAAiBtOwAB7fefZvRkU-8eBA",
+   "file_unique_id": "AgADzAQAAiBtOwAB",
+   "file_size": 8099
+  }
  }
 ]

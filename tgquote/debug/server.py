@@ -5,7 +5,7 @@ import json
 
 from .filegetter import DebufFileGetter
 from .. import messagesToHtml
-from ..utils import templates_list
+from ..utils import templates_list, js
 
 from pathlib import Path
 selfdir = Path(__file__).parent
@@ -43,9 +43,20 @@ async def debug(req: web.Request):
       {css}
       </style>
       {rendered}
+      <script src="https://oauth.tg.dev/js/telegram-widget.js?14"></script>
+      <script src="https://tg.dev/js/tgsticker.js?24"></script>
+      <script src="https://tg.dev/js/widget-frame.js?45"></script>
+      '''+'''<script>
+        TWidgetAuth.init({"api_url":"https:\/\/\/api\/method?api_hash=2e47378d2cf97fa915","upload_url":"https:\/\/\/api\/upload?api_hash=5d0c3cee1693c4e3be","unauth":true,"bot_id":1288099309});
+        TWidgetPost.init();
+        try{var a=new XMLHttpRequest;a.open("POST","");a.setRequestHeader("Content-type","application/x-www-form-urlencoded");a.send("_rl=1")}catch(e){}
+      </script>
     </body>
   </html>
   '''
   return web.Response(body=html, content_type='text/html')
 
 app.add_routes(routes)
+
+if __name__ == '__main__':
+  web.run_app(debug.app)

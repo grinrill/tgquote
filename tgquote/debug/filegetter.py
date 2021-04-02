@@ -34,8 +34,11 @@ class DebufFileGetter(filegetters.BaseFileGetter):
         continue
       if isinstance(v, dict):
         if 'file_id' in v:
-          return {
-            'file_id': k+'.'+(v.get('mime_type', 'img/jpg').split('/')[1])
-          }
+          if k == 'sticker':
+            v['mime_type'] = 'application/x-tgsticker' if v['is_animated'] else 'img/webp'
+          v.update({
+                      'file_id': k+'.'+(v.get('mime_type', 'img/jpg').split('/')[1])
+                    })
+          return v
       if result := await self.get_document(v):
         return result
