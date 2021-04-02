@@ -8,7 +8,7 @@ except ModuleNotFoundError:
   TelegramObject = None
   Bot = None
 
-def preprocessMessagesToDict(
+def messages_to_dict(
   messages: typing.Union[
     TelegramObject, 
     dict,
@@ -47,32 +47,4 @@ def preprocessMessagesToDict(
         'not {}'.format(type(message))
         )
   
-  return messages
-
-# async def preprocessDownloadMedia(
-#     messages: typing.List[dict],
-#     bot: Bot,
-#     media: Media = None
-#   ) -> Media:
-#     if not media:
-#       media = Media(bot=bot)
-
-#     for message in messages:
-#       if files := message.get('photo'):
-#         if file := [
-#           media.get_file(
-#             file_id=f['file_id'], 
-#             file_unique_id=f['file_unique_id']
-#             )
-#           for f in files
-#         ]:
-#           file = file[0]
-#           if file.downloaded:
-#             continue
-#         else:
-#           file = MediaFile()
-        
-def preprocessTextToHtml(messages: dict):
-  for message in messages:
-    text = message.get('text') or message.get('caption')
   return messages

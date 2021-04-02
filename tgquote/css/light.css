@@ -19,7 +19,9 @@ body {
   margin-left: 86px;
 }
 
-
+.note-message {
+  background-color: transparent;
+}
 
 .author-user-pic {
   position: absolute;

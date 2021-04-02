@@ -1,4 +1,4 @@
-from .preprocessing import preprocessMessagesToDict
+from .preprocessing import base_preprocessing
 from .renderers import BaseRenderer
 from .filegetters import BaseFileGetter
 from .message2html import messagesToHtml
@@ -76,11 +76,13 @@ class TelegramImageRenderer:
     jinja2_loader: BaseLoader = None,
     jinja2_env: Environment = None,
     templates = templates_list,
+    preprocessing = base_preprocessing,
   ):
     self.renderer = renderer
     self.filegetter = filegetter  
     self.templates = templates
     self.file_format = file_format
+    self.preprocessing = preprocessing
 
     # if jinja2_env:
     #   self.env = jinja2_env
@@ -132,11 +134,13 @@ class TelegramImageRenderer:
     jinja2_loader: BaseLoader = None,
     jinja2_env: Environment = None,
     templates = None,
+    preprocessing = None,
   ):
     renderer = renderer or self.renderer
     filegetter = filegetter or self.filegetter
     templates = templates or self.templates
     file_format = file_format or self.file_format
+    preprocessing = preprocessing or self.preprocessing
 
     # env = self.env
     # if jinja2_env:
@@ -179,7 +183,9 @@ class TelegramImageRenderer:
     env = self.get_env(jinja2_loader, jinja2_env)
     css = self.get_css(css, append_css)
 
-    messages = preprocessMessagesToDict(messages)
+    for preprocessor in preprocessing:
+        messages = preprocessor(messages)
+
     html = await messagesToHtml(messages, env, files=filegetter, templates=templates)
     html = f'{html} <script>{js}</script>'
     image = await renderer.render(html, css, file_format)
