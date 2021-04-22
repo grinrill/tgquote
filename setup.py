@@ -58,7 +58,9 @@ setup(
         'Programming Language :: Python :: 3.9',
         'Topic :: Software Development :: Libraries :: Application Frameworks',
     ],
-    install_requires=[],
+    install_requires=[
+        "Jinja2>=2.11.3"
+    ],
     extras_require={
         'httpapi': [
 	        'aiohttp>=3.7.2,<4.0.0'
