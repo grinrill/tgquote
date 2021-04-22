@@ -1,4 +1,4 @@
-from .message2html import env, messagesToHtml
+from .messages_to_html import env, messages_to_html
 from .engine import TelegramImageRenderer
 
 from . import utils

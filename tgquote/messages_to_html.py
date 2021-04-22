@@ -10,7 +10,7 @@ env = Environment(
 )
 
 
-async def messagesToHtml(
+async def messages_to_html(
     messages: typing.List[dict],
     env: Environment = env,
     **kwargs

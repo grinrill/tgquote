@@ -1,7 +1,7 @@
 from .preprocessing import base_preprocessing
 from .renderers import BaseRenderer
 from .filegetters import BaseFileGetter
-from .message2html import messagesToHtml
+from .messages_to_html import messages_to_html
 from .utils import templates_list, js
 
 from jinja2 import Environment, ChoiceLoader, BaseLoader, FileSystemLoader
@@ -84,44 +84,34 @@ class TelegramImageRenderer:
     self.file_format = file_format
     self.preprocessing = preprocessing
 
-    # if jinja2_env:
-    #   self.env = jinja2_env
-    # else:
-    #   if jinja2_loader:
-    #     loader = ChoiceLoader([
-    #       jinja2_loader,
-    #       FileSystemLoader(module/'templates')
-    #     ])
-    #   else:
-    #     loader = FileSystemLoader(module/'templates')
-    #   self.env = Environment(
-    #       loader=loader,
-    #       enable_async=True,
-    #   )
-    
-    # if isinstance(css, str):
-    #   if css.endswith('.css'):
-    #     self.css = open(css, 'r+').read()
-    #   else:
-    #     self.css = css
-    # else:
-    #   self.css = css.read()
-    #   if isinstance(self.css, bytes):
-    #     self.css = self.css.decode()
-    # if append_css:
-    #   if isinstance(css, str):
-    #     if append_css.endswith('.css'):
-    #       append_css = open(append_css, 'r+').read()
-    #     else:
-    #       append_css = append_css
-    #   else:
-    #     append_css = append_css.read()
-    #     if isinstance(append_css, bytes):
-    #       append_css = append_css.decode()
-    #   self.css += append_css
-
     self.env = self.get_env(jinja2_loader, jinja2_env)
     self.css = self.get_css(css, append_css)
+
+  async def render_html(
+    self,
+    messages,
+    filegetter: BaseFileGetter = None,
+    css: typing.Union[str, io.BytesIO, io.StringIO] = None,
+    append_css: typing.Union[str, io.BytesIO, io.StringIO] = None,
+    jinja2_loader: BaseLoader = None,
+    jinja2_env: Environment = None,
+    templates = None,
+    preprocessing = None,
+  ):    
+    templates = templates or self.templates
+    preprocessing = preprocessing or self.preprocessing
+    filegetter = filegetter or self.filegetter
+
+    env = self.get_env(jinja2_loader, jinja2_env)
+    css = self.get_css(css, append_css)
+
+    for preprocessor in preprocessing:
+        messages = preprocessor(messages)
+
+    html = await messages_to_html(messages, env, files=filegetter, templates=templates)
+    html = f'{html} <script>{js}</script>'
+
+    return html, css
 
   async def render(
     self,
@@ -135,59 +125,22 @@ class TelegramImageRenderer:
     jinja2_env: Environment = None,
     templates = None,
     preprocessing = None,
+    html: str = None,
   ):
     renderer = renderer or self.renderer
-    filegetter = filegetter or self.filegetter
-    templates = templates or self.templates
     file_format = file_format or self.file_format
-    preprocessing = preprocessing or self.preprocessing
 
-    # env = self.env
-    # if jinja2_env:
-    #   env = jinja2_env
-    # else:
-    #   if jinja2_loader:
-    #     loader = ChoiceLoader([
-    #       jinja2_loader,
-    #       FileSystemLoader(module/'templates')
-    #     ])
-    #     env = Environment(
-    #         loader=loader,
-    #         enable_async=True,
-    #     )
-    
-    # if css:
-    #   if isinstance(css, str):
-    #     if css.endswith('.css'):
-    #       css = open(css, 'r+').read()
-    #     else:
-    #       css = css
-    #   else:
-    #     css = css.read()
-    #     if isinstance(self.css, bytes):
-    #       css = css.decode()
-    # else:
-    #   css = self.css
-    # if append_css:
-    #   if isinstance(css, str):
-    #     if append_css.endswith('.css'):
-    #       append_css = open(append_css, 'r+').read()
-    #     else:
-    #       append_css = append_css
-    #   else:
-    #     append_css = append_css.read()
-    #     if isinstance(append_css, bytes):
-    #       append_css = append_css.decode()
-    #   css += append_css
-
-    env = self.get_env(jinja2_loader, jinja2_env)
-    css = self.get_css(css, append_css)
-
-    for preprocessor in preprocessing:
-        messages = preprocessor(messages)
-
-    html = await messagesToHtml(messages, env, files=filegetter, templates=templates)
-    html = f'{html} <script>{js}</script>'
+    if not html:
+      html, css = await self.render_html(
+        messages,
+        filegetter,
+        css,
+        append_css,
+        jinja2_loader,
+        jinja2_env,
+        templates,
+        preprocessing,
+      )
     image = await renderer.render(html, css, file_format)
 
     return image

@@ -4,7 +4,7 @@ from jinja2 import Environment, FileSystemLoader
 import json
 
 from .filegetter import DebufFileGetter
-from .. import messagesToHtml
+from .. import messages_to_html
 from ..utils import templates_list, js
 
 from pathlib import Path
@@ -31,7 +31,7 @@ async def debug(req: web.Request):
   css = open(module/'css/light.css').read()
   css += 'body {background-color: grey}'
 
-  rendered = await messagesToHtml(messages, env, files=filegetter, templates=templates_list)
+  rendered = await messages_to_html(messages, env, files=filegetter, templates=templates_list)
   html = f'''
   <!!DOCTYPE html>
   <html>
