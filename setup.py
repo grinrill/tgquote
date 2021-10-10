@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 import pathlib
 import re
-import sys
 
 from setuptools import find_packages, setup
 
@@ -38,13 +37,16 @@ def get_description():
 setup(
     name='tgquote',
     version=get_version(),
-    packages=find_packages(exclude=('debug', 'debug.*', 'examples.*', 'docs',)),
+    packages=find_packages(exclude=('debug', 'debug.*', 'examples.*', 'docs')),
     url='https://github.com/grinrill/telegramimage',
     license='MIT',
     author='Grinrill',
     requires_python='>=3.7',
     author_email='kiralgrin@gmail.com',
-    description='Is a pretty simple and fully asynchronous framework for quoting telegram messages',
+    description=(
+        'Is a pretty simple and fully asynchronous framework for quoting telegram'
+        ' messages'
+    ),
     long_description=get_description(),
     classifiers=[
         'Development Status :: 3 - Alpha',
@@ -58,19 +60,11 @@ setup(
         'Programming Language :: Python :: 3.9',
         'Topic :: Software Development :: Libraries :: Application Frameworks',
     ],
-    install_requires=[
-        "Jinja2>=2.11.3"
-    ],
+    install_requires=["Jinja2>=2.11.3"],
     extras_require={
-        'httpapi': [
-	        'aiohttp>=3.7.2,<4.0.0'
-        ],
-        'pyppeteer': [
-        	'pyppeteer>=0.2.5'
-        ],
+        'httpapi': ['aiohttp>=3.7.2,<4.0.0'],
+        'pyppeteer': ['pyppeteer>=0.2.5'],
     },
-    package_data={
-    	'': ['*.jinja2', '*.js', '*.css']
-    },
+    package_data={'': ['*.jinja2', '*.js', '*.css']},
     include_package_data=True,
 )

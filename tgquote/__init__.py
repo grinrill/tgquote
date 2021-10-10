@@ -7,8 +7,8 @@ from . import filegetters
 from . import preprocessing
 
 try:
-  from . import debug
+    from . import debug
 except ModuleNotFoundError:
-  pass
+    pass
 
 __version__ = '0.1.1'

@@ -1,13 +1,18 @@
 from __future__ import annotations
 from typing import Generator, List, Optional, Pattern, cast
 
+try:
+    from aiogram import types
+except ModuleNotFoundError:
+    pass
+
 import html
 import re
 from abc import ABC, abstractmethod
 
 
 class TextDecoration(ABC):
-    def apply_entity(self, entity: MessageEntity, text: str) -> str:
+    def apply_entity(self, entity: types.MessageEntity, text: str) -> str:
         """
         Apply single entity to text
 
@@ -31,12 +36,21 @@ class TextDecoration(ABC):
             return self.link(value=text, link=f"tg://user?id={0}")
         if entity['type'] == "text_link":
             return self.link(value=text, link=cast(str, entity['url']))
-        if entity['type'] in {"bot_command", "url", "mention", "phone_number", "hashtag", "cashtag"}:
+        if entity['type'] in {
+            "bot_command",
+            "url",
+            "mention",
+            "phone_number",
+            "hashtag",
+            "cashtag",
+        }:
             return self.link(value=text, link='example.com')
 
         return self.quote(text)
 
-    def unparse(self, text: str, entities: Optional[List[MessageEntity]] = None) -> str:
+    def unparse(
+        self, text: str, entities: Optional[List[types.MessageEntity]] = None
+    ) -> str:
         """
         Unparse message entities
 
@@ -46,14 +60,15 @@ class TextDecoration(ABC):
         """
         return "".join(
             self._unparse_entities(
-                self._add_surrogates(text), sorted(entities, key=lambda item: item['offset']) if entities else []
+                self._add_surrogates(text),
+                sorted(entities, key=lambda item: item['offset']) if entities else [],
             )
         )
 
     def _unparse_entities(
         self,
         text: bytes,
-        entities: List[MessageEntity],
+        entities: List[types.MessageEntity],
         offset: Optional[int] = None,
         length: Optional[int] = None,
     ) -> Generator[str, None, None]:
@@ -65,7 +80,9 @@ class TextDecoration(ABC):
             if entity['offset'] * 2 < offset:
                 continue
             if entity['offset'] * 2 > offset:
-                yield self.quote(self._remove_surrogates(text[offset : entity['offset'] * 2]))
+                yield self.quote(
+                    self._remove_surrogates(text[offset : entity['offset'] * 2])
+                )
             start = entity['offset'] * 2
             offset = entity['offset'] * 2 + entity['length'] * 2
 
@@ -188,29 +205,29 @@ class MarkdownDecoration(TextDecoration):
     def quote(self, value: str) -> str:
         return re.sub(pattern=self.MARKDOWN_QUOTE_PATTERN, repl=r"\\\1", string=value)
 
+
 html_decoration = HtmlDecoration()
 markdown_decoration = MarkdownDecoration()
 
 
 def markup(messages: dict):
-  for message in messages:
-    text = message.get('text') or message.get('caption')
-    entities = message.get('entities', []) or message.get('caption_entities', [])
-    if not text:
-    	continue
+    for message in messages:
+        text = message.get('text') or message.get('caption')
+        entities = message.get('entities', []) or message.get('caption_entities', [])
+        if not text:
+            continue
 
-    # for entity in entities:
-    # 	text = html_decoration.apply_entity(entity, text)
-    text = html_decoration.unparse(text, entities)
-    text = text.replace('\n', '<br>')
+        # for entity in entities:
+        #   text = html_decoration.apply_entity(entity, text)
+        text = html_decoration.unparse(text, entities)
+        text = text.replace('\n', '<br>')
 
-    if message.get('text'):
-    	message['text'] = text
-    if message.get('caption'):
-    	message['caption'] = text
+        if message.get('text'):
+            message['text'] = text
+        if message.get('caption'):
+            message['caption'] = text
 
-  return messages
+    return messages
 
-__all__ = [
-	'markup'
-]
+
+__all__ = ['markup']
